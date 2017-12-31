@@ -225,6 +225,44 @@ void testSymMatrixXVector(){
 	std::cout << "End of gemv test." << std::endl;
 }
 
+void testSymMatrixXComplexVector(){
+	std::cout << "*****************************Testing the * operator*****************************" << std::endl;
+	srand((unsigned int) time(0));
+
+	unsigned int nsize = 5;
+	Eigen::MatrixXd A = Eigen::MatrixXd::Random(nsize, nsize); A= A*A.transpose();
+	Eigen::VectorXcd v = Eigen::VectorXcd::Random(nsize);
+	std::cout << "A :\n" << A << std::endl;
+
+	std::cout << "Eigen A*v :\n" << A*v << std::endl;
+
+	double* dataA = new double[nsize*(nsize+1)/2];
+	std::complex<double>* dataV = new std::complex<double>[nsize]();
+	std::complex<double>* dataU = new std::complex<double>[nsize]();
+	unsigned int dataApos = 0;
+	for(unsigned int i = 0; i < A.rows(); i++){
+		dataV[i] = v(i);
+		for(unsigned int j = i; j < A.cols(); j++){
+			dataA[dataApos] = A(i,j);
+			dataApos++;
+		}
+	}
+
+	//DenseMatrix objects
+	SymMatrix symA(dataA, nsize);
+	std::cout << "symA: " << symA << std::endl;
+	symA.symv(dataV, dataU);
+	std::cout << "Tested method output :" << std::endl;
+	for(unsigned int i = 0; i < symA.getNRows(); i++){
+		std::cout << " v[" << i << "] = " << dataU[i] << std::endl;
+	}
+	symA.free();
+	delete [] dataU;
+	delete [] dataV;
+	std::cout << "End of gemv test." << std::endl;
+
+}
+
 void testAddOperatorSymMatrixXSymMatrix(){
 
 	std::cout << "*****************************Testing the + operator*****************************" << std::endl;

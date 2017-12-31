@@ -10,8 +10,10 @@
 
 #include <iostream>
 #include <cstring>
+#include <complex>
 #include "SymMatrix.h"
 #include "DenseMatrix.h"
+#include "Support.h"
 
 namespace matrix {
 
@@ -49,7 +51,14 @@ public:
 	SBlockPent& operator=(const SBlockPent& obj);
 	friend std::ostream& operator<<(std::ostream& os, const SBlockPent& obj);
 	void symv(double* src, double* dest);
+	void symv(std::complex<double>* src, std::complex<double>* dest);
 	void free();
+	/*
+	 * This method performs the power iteration and returns the largest eignevalue associated with the matrix
+	 * represented by this object. It also returns its associated eigenvector and norm of the difference of the
+	 * two last eigenvector estimates.
+	 */
+	void powerMethod(std::complex<double>* v, std::complex<double>* lambda, double prec, unsigned int maxIter, unsigned int* iter, double* dnorm);
 private:
 	unsigned int nblocks;
 	SymMatrix* symBlocks;
@@ -60,6 +69,9 @@ void testPrintOperatorSBlockPent();
 void testSetBlocksSBlockPent();
 void testAssignOperatorSBlockPent();
 void testSymvPent();
+void testSymvPentComplex();
+void testPowerMethodSBlockPent();
+void testPowerMethodSBlockPent2();
 
 } /* namespace matrix */
 

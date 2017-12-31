@@ -327,6 +327,22 @@ void SymMatrix::symv(double* src, double* dest){
 	}
 }
 
+void SymMatrix::symv(std::complex<double>* src, std::complex<double>* dest){
+	unsigned int AEleUpper = 0;
+	for(unsigned int i = 0; i < this->nrows; i++){
+
+		dest[i] += this->data[AEleUpper]*src[i];
+		AEleUpper++;
+
+		for(unsigned int j = i+1; j < this->nrows; j++){
+			dest[i] += this->data[AEleUpper]*src[j];
+			dest[j] += this->data[AEleUpper]*src[i];
+			AEleUpper++;
+		}
+	}
+}
+
+
 std::ostream& operator<<(std::ostream& os, const SymMatrix& obj){
 	unsigned int pos = 0;
 	os << "\n[";

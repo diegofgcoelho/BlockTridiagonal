@@ -2,7 +2,7 @@ Test/SBlockTrid_test.o: ../Test/SBlockTrid_test.cpp \
  ../Test/../Sources/SymMatrix.h ../Test/../Sources/DenseMatrix.h \
  ../Test/../Sources/SymMatrix.h ../Test/../Sources/DenseMatrix.h \
  ../Test/../Sources/SBlockTrid.h ../Test/../Sources/SBlockPent.h \
- /home/diego/softwares/eigen3.3/Eigen/Dense \
+ ../Test/../Sources/Support.h /home/diego/softwares/eigen3.3/Eigen/Dense \
  /home/diego/softwares/eigen3.3/Eigen/Core \
  /home/diego/softwares/eigen3.3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /home/diego/softwares/eigen3.3/Eigen/src/Core/util/Macros.h \
@@ -188,6 +188,8 @@ Test/SBlockTrid_test.o: ../Test/SBlockTrid_test.cpp \
 ../Test/../Sources/SBlockTrid.h:
 
 ../Test/../Sources/SBlockPent.h:
+
+../Test/../Sources/Support.h:
 
 /home/diego/softwares/eigen3.3/Eigen/Dense:
 

@@ -9,6 +9,7 @@
 #define SYMMATRIX_H_
 
 #include <cstring>
+#include <complex>
 #include "DenseMatrix.h"
 
 namespace matrix {
@@ -83,6 +84,7 @@ public:
 	 * dest, must be already allocated.
 	 */
 	void symv(double* src, double* dest);
+	void symv(std::complex<double>* src, std::complex<double>* dest);
 	/*
 	 * Overloaded operator prints the matrix elements
 	 */
@@ -107,6 +109,7 @@ void testCloneFromSymMatrix();
 void testMultiplyOperatorSymMatrixXDenseMatrix();
 void testMultiplyOperatorSymMatrixXSymMatrix();
 void testSymMatrixXVector();
+void testSymMatrixXComplexVector();
 void testAddOperatorSymMatrixXSymMatrix();
 void testSquareSymMatrix();
 

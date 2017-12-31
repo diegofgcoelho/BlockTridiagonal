@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <complex>
 #include "SymMatrix.h"
 
 namespace matrix {
@@ -97,7 +98,9 @@ public:
 	 * dest, must be already allocated.
 	 */
 	void gemv(double* src, double* dest);
+	void gemv(std::complex<double>* src, std::complex<double>* dest);
 	void gemtv(double* src, double* dest);
+	void gemtv(std::complex<double>* src, std::complex<double>* dest);
 	/*
 	 * Overloaded operator prints the matrix elements
 	 */
@@ -121,7 +124,9 @@ void testCloneFromDenseMatrix();
 void testMultiplyOperatorDenseMatrixXDenseMatrix();
 void testMultiplyOperatorDenseMatrixXSymMatrix();
 void testDenseMatrixXVector();
+void testDenseMatrixXComplexVector();
 void testDenseMatrixTransposedXVector();
+void testDenseMatrixTransposedXComplexVector();
 void testAAT();
 void testATA();
 void testAddOperatorDenseMatrixXDenseMatrix();

@@ -43,10 +43,10 @@ void SBlockTrid::setBlockByClone(DenseMatrix* denseBlock,
 	this->denseBlocks[i].cloneFrom(*denseBlock);
 }
 
-void SBlockTrid::getBlocks(SymMatrix* symBlocks,
-		DenseMatrix* denseMatrix) {
-	symBlocks = this->symBlocks;
-	denseMatrix = this->denseBlocks;
+void SBlockTrid::getBlocks(SymMatrix** symBlocks,
+		DenseMatrix** denseMatrix) {
+	*symBlocks = this->symBlocks;
+	*denseMatrix = this->denseBlocks;
 }
 
 SBlockPent SBlockTrid::square() {
@@ -110,6 +110,25 @@ void SBlockTrid::symv(double* src, double* dest) {
 
 }
 
+void SBlockTrid::symv(std::complex<double>* src, std::complex<double>* dest) {
+
+	const unsigned int bsize = this->symBlocks[0].getNRows();
+
+	//Running over all the blocks in the main diagonal
+	for(unsigned int i = 0; i < this->nblocks-1; i++){
+		//dest[i*this->nblocks]
+		this->symBlocks[i].symv(&src[i*bsize], &dest[i*bsize]);
+		this->denseBlocks[i].gemv(&src[(i+1)*bsize],&dest[i*bsize]);
+		this->denseBlocks[i].gemtv(&src[i*bsize], &dest[(i+1)*bsize]);
+
+	}
+
+	//For the last block
+	this->symBlocks[this->nblocks-1].symv(&src[(this->nblocks-1)*bsize], &dest[(this->nblocks-1)*bsize]);
+
+}
+
+
 void SBlockTrid::free(){
 	if(this->symBlocks != NULL && this->denseBlocks != NULL){
 		for(unsigned int i = 0; i < this->nblocks-1; i++){
@@ -160,6 +179,127 @@ SBlockTrid& SBlockTrid::operator=(const SBlockTrid& obj){
 	this->nblocks = obj.nblocks;
 
 	return *this;
+}
+
+void SBlockTrid::powerMethod(std::complex<double>* v, std::complex<double>* lambda,
+		double prec, unsigned int maxIter, unsigned int* iter, double* dnorm) {
+	/*Input:
+	 * v is the initial guess for the eigenvector associated with the
+	 * largest eigenvalue
+	 * lambda is the initial guess for the eigenvalue
+	 * maxIter is the maximum number of iterations
+	 * prec is the precision using for the stopping criteria for the vector difference norm
+	 */
+	/*Output:
+	 * v represents the eigenvector associated with the largest eigenvalue
+	 * lambda represents the largest eigenvalue
+	 * iter is the number of iterations used for computing the largest eigenvalue
+	 * dnorm is the norm of the difference between the last consecutive eigenvector estimates
+	 */
+	/*Requirement:
+	 * this object must be initialized (with non null symBlocks and denseBlocks)
+	 * the largest eigenvalue and its eigenvector must be complex
+	 * v must be non-null
+	 * maxIter must be greater than 1
+	 */
+	/*Description: this function returns the largest eigenvalue of this matrix object using
+	 * power method
+	 */
+
+	if(maxIter <= 1){
+		std::cout << "Error: the maximum number of iterations must be at least 1." << std::endl;
+		return;
+	}
+
+	//Vectors size
+	const unsigned int vsize = this->nblocks*this->symBlocks[0].getNRows();
+
+	//Auxiliary vectors
+	std::complex<double>* vv = new std::complex<double>[vsize]();
+	std::complex<double>* vvv = new std::complex<double>[vsize]();
+
+	for(*iter = 0; *iter < maxIter; (*iter)++){
+
+		//Update the past vectors
+		std::memcpy(vvv, vv, sizeof(std::complex<double>)*vsize);
+		std::memcpy(vv, v, sizeof(std::complex<double>)*vsize);
+
+		//Cleaning up v
+		std::fill_n(v, vsize, std::complex<double>(0.0,0.0));
+		//Perform the matrix vector multiplication
+		this->symv(vv, v);
+
+		//Perform the vector scaling
+		support::scal(v, vsize, 1.0/(*lambda));
+
+		//Find the largest coefficient of resulting vector
+//		*lambda = *std::max_element(v, v+vsize, support::cmpcmp);
+		*lambda = support::max_mag_cmp(v, vsize);
+
+		//Stopping criteria
+		if(support::check_stop(v, vv, vvv, vsize, prec, dnorm)){
+			break;
+		}
+
+	}
+
+	delete [] vv;
+	delete [] vvv;
+
+}
+
+void SBlockTrid::random(unsigned int nblocks, unsigned int bsize){
+
+	srand((unsigned int) time(0));
+
+	DenseMatrix* denseBlocks = new DenseMatrix[nblocks];
+	SymMatrix* symBlocks = new SymMatrix[nblocks];
+
+	for(unsigned int k = 0; k < nblocks-1; k++){
+		Eigen::MatrixXd A = Eigen::MatrixXd::Random(bsize, bsize); A = A*A.transpose();
+		Eigen::MatrixXd B = Eigen::MatrixXd::Random(bsize, bsize);
+
+		//Assigning matrix elements
+		double* dataA = new double[bsize*(bsize+1)/2];
+		double* dataB = new double[bsize*bsize];
+		unsigned int datapos = 0;
+		for(unsigned int i = 0; i < A.rows(); i++){
+			for(unsigned int j = 0; j < A.cols(); j++){
+				dataB[i*bsize+j] = B(i,j);
+				if(j >= i) {
+					dataA[datapos] = A(i,j);
+					datapos++;
+				}
+			}
+		}
+
+		//Setting the data to the array of DenseMatrix and SymMatrix
+		symBlocks[k].setData(dataA, bsize);
+		denseBlocks[k].setData(dataB, bsize, bsize);
+	}
+
+	//The last row in separate
+	Eigen::MatrixXd A = Eigen::MatrixXd::Random(bsize, bsize); A = A*A.transpose();
+
+	//Assigning matrix elements
+	double* dataA = new double[bsize*(bsize+1)/2];
+	unsigned int datapos = 0;
+	for(unsigned int i = 0; i < A.rows(); i++){
+		for(unsigned int j = 0; j < A.cols(); j++){
+			if(j >= i) {
+				dataA[datapos] = A(i,j);
+				datapos++;
+			}
+		}
+	}
+
+	//Setting the data to the array of DenseMatrix and SymMatrix
+	symBlocks[nblocks-1].setData(dataA, bsize);
+
+	this->symBlocks = symBlocks;
+	this->denseBlocks = denseBlocks;
+	this->nblocks = nblocks;
+
 }
 
 } /* namespace matrix */

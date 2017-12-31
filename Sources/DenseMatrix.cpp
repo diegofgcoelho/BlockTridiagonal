@@ -207,7 +207,23 @@ void DenseMatrix::gemv(double* src, double* dest){
 	}
 }
 
+void DenseMatrix::gemv(std::complex<double>* src, std::complex<double>* dest){
+	for(unsigned int i = 0; i < this->nrows; i++){
+		for(unsigned int j = 0; j < this->ncols; j++){
+			dest[i]+=this->data[i*this->nrows+j]*src[j];
+		}
+	}
+}
+
 void DenseMatrix::gemtv(double* src, double* dest){
+	for(unsigned int i = 0; i < this->nrows; i++){
+		for(unsigned int j = 0; j < this->ncols; j++){
+			dest[i]+=this->data[j*this->nrows+i]*src[j];
+		}
+	}
+}
+
+void DenseMatrix::gemtv(std::complex<double>* src, std::complex<double>* dest){
 	for(unsigned int i = 0; i < this->nrows; i++){
 		for(unsigned int j = 0; j < this->ncols; j++){
 			dest[i]+=this->data[j*this->nrows+i]*src[j];

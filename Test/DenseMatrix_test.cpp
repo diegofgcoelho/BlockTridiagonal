@@ -273,6 +273,43 @@ void testDenseMatrixXVector(){
 	std::cout << "End of gemv test." << std::endl;
 }
 
+void testDenseMatrixXComplexVector(){
+
+	std::cout << "*****************************Testing the gemv method*****************************" << std::endl;
+	srand((unsigned int) time(0));
+
+	unsigned int nsize = 5;
+	Eigen::MatrixXd A = Eigen::MatrixXd::Random(nsize, nsize);
+	Eigen::VectorXcd v = Eigen::VectorXcd::Random(nsize);
+	std::cout << "A :\n" << A << std::endl;
+
+	std::cout << "Eigen A*v :\n" << A*v << std::endl;
+
+	double* dataA = new double[nsize*nsize];
+	std::complex<double>* dataV = new std::complex<double>[nsize]();
+	std::complex<double>* dataU = new std::complex<double>[nsize]();
+
+	for(unsigned int i = 0; i < A.rows(); i++){
+		dataV[i] = static_cast<std::complex<double> >(v(i));
+		for(unsigned int j = 0; j < A.cols(); j++){
+			dataA[i*A.rows()+j] = A(i,j);
+		}
+	}
+
+	//DenseMatrix objects
+	DenseMatrix denseA(dataA, nsize, nsize);
+	denseA.gemv(dataV, dataU);
+	std::cout << "Tested method output :" << std::endl;
+	for(unsigned int i = 0; i < denseA.getNRows(); i++){
+		std::cout << " u[" << i << "] = " << dataU[i] << std::endl;
+	}
+	denseA.free();
+	delete [] dataU;
+	delete [] dataV;
+	std::cout << "End of gemv test." << std::endl;
+}
+
+
 void testDenseMatrixTransposedXVector(){
 	std::cout << "*****************************Testing the gemtv method*****************************" << std::endl;
 	srand((unsigned int) time(0));
@@ -306,6 +343,42 @@ void testDenseMatrixTransposedXVector(){
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemtv test." << std::endl;
+}
+
+void testDenseMatrixTransposedXComplexVector(){
+
+	std::cout << "*****************************Testing the gemv method*****************************" << std::endl;
+	srand((unsigned int) time(0));
+
+	unsigned int nsize = 5;
+	Eigen::MatrixXd A = Eigen::MatrixXd::Random(nsize, nsize);
+	Eigen::VectorXcd v = Eigen::VectorXcd::Random(nsize);
+	std::cout << "A :\n" << A << std::endl;
+
+	std::cout << "Eigen A^T*v :\n" << A.transpose()*v << std::endl;
+
+	double* dataA = new double[nsize*nsize];
+	std::complex<double>* dataV = new std::complex<double>[nsize]();
+	std::complex<double>* dataU = new std::complex<double>[nsize]();
+
+	for(unsigned int i = 0; i < A.rows(); i++){
+		dataV[i] = static_cast<std::complex<double> >(v(i));
+		for(unsigned int j = 0; j < A.cols(); j++){
+			dataA[i*A.rows()+j] = A(i,j);
+		}
+	}
+
+	//DenseMatrix objects
+	DenseMatrix denseA(dataA, nsize, nsize);
+	denseA.gemtv(dataV, dataU);
+	std::cout << "Tested method output :" << std::endl;
+	for(unsigned int i = 0; i < denseA.getNRows(); i++){
+		std::cout << " u[" << i << "] = " << dataU[i] << std::endl;
+	}
+	denseA.free();
+	delete [] dataU;
+	delete [] dataV;
+	std::cout << "End of gemv test." << std::endl;
 }
 
 void testAAT(){

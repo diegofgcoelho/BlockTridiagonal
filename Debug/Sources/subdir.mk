@@ -7,6 +7,7 @@ CPP_SRCS += \
 ../Sources/DenseMatrix.cpp \
 ../Sources/SBlockPent.cpp \
 ../Sources/SBlockTrid.cpp \
+../Sources/Support.cpp \
 ../Sources/SymMatrix.cpp \
 ../Sources/main.cpp 
 
@@ -14,6 +15,7 @@ OBJS += \
 ./Sources/DenseMatrix.o \
 ./Sources/SBlockPent.o \
 ./Sources/SBlockTrid.o \
+./Sources/Support.o \
 ./Sources/SymMatrix.o \
 ./Sources/main.o 
 
@@ -21,6 +23,7 @@ CPP_DEPS += \
 ./Sources/DenseMatrix.d \
 ./Sources/SBlockPent.d \
 ./Sources/SBlockTrid.d \
+./Sources/Support.d \
 ./Sources/SymMatrix.d \
 ./Sources/main.d 
 
