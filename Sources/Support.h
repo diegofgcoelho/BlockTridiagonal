@@ -11,6 +11,17 @@
 #include <cmath>
 #include <complex>
 
+/*
+ * Structure used for storing the matrix data (DenseMatrix and SymMatrix) with a attached counter
+ * that stores the number marices pointing to that location.
+ */
+typedef struct {
+	//Array of actual data
+	double* data;
+	//Counter of all the matrices pointing to this structure data
+	unsigned int counter;
+} Data;
+
 namespace support{
 	/*
 	 * This functon returns whether the first argument s larger or not than the second one

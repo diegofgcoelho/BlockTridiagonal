@@ -30,7 +30,6 @@ void testPrintOperatorSymMatrix(){
 
 	//Displaying the matrix
 	std::cout << matrix << std::endl;
-	matrix.free();
 	std::cout << "End of << operator test." << std::endl;
 }
 
@@ -54,8 +53,6 @@ void testAssignOperatorSymMatrix(){
 	SymMatrix matrixb;
 	matrixb = matrix;
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of = operator test." << std::endl;
 }
 
@@ -80,8 +77,6 @@ void testCloneToSymMatrix(){
 	SymMatrix matrixb;
 	matrix.cloneTo(matrixb);
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of cloneTo test." << std::endl;
 }
 
@@ -106,8 +101,6 @@ void testCloneFromSymMatrix(){
 	SymMatrix matrixb;
 	matrixb.cloneFrom(matrix);
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of cloneFrom test." << std::endl;
 }
 
@@ -143,9 +136,6 @@ void testMultiplyOperatorSymMatrixXDenseMatrix(){
 	DenseMatrix denseAB;
 	denseAB = symA*denseB;
 	std::cout << "Tested operator A*B :" << denseAB << std::endl;
-	symA.free();
-	denseB.free();
-	denseAB.free();
 	std::cout << "End of * operator test." << std::endl;
 }
 
@@ -181,9 +171,6 @@ void testMultiplyOperatorSymMatrixXSymMatrix(){
 	DenseMatrix denseAB;
 	denseAB = symA*symB;
 	std::cout << "Tested operator A*B :" << denseAB << std::endl;
-	symA.free();
-	symB.free();
-	denseAB.free();
 	std::cout << "End of * operator test." << std::endl;
 }
 
@@ -219,7 +206,6 @@ void testSymMatrixXVector(){
 	for(unsigned int i = 0; i < symA.getNRows(); i++){
 		std::cout << " v[" << i << "] = " << dataU[i] << std::endl;
 	}
-	symA.free();
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemv test." << std::endl;
@@ -256,7 +242,6 @@ void testSymMatrixXComplexVector(){
 	for(unsigned int i = 0; i < symA.getNRows(); i++){
 		std::cout << " v[" << i << "] = " << dataU[i] << std::endl;
 	}
-	symA.free();
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemv test." << std::endl;
@@ -295,9 +280,6 @@ void testAddOperatorSymMatrixXSymMatrix(){
 	SymMatrix symAB;
 	symAB = symA+symB;
 	std::cout << "Tested operator A+B :" << symAB << std::endl;
-	symA.free();
-	symB.free();
-	symAB.free();
 	std::cout << "End of + operator test." << std::endl;
 }
 
@@ -327,8 +309,6 @@ void testSquareSymMatrix(){
 	SymMatrix symA(dataA, nsize);
 	SymMatrix symAA = symA.square();
 	std::cout << "Tested square method :" << symAA << std::endl;
-	symA.free();
-	symAA.free();
 	std::cout << "End of square method test." << std::endl;
 
 }

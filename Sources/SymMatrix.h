@@ -10,6 +10,7 @@
 
 #include <cstring>
 #include <complex>
+#include "Support.h"
 #include "DenseMatrix.h"
 
 namespace matrix {
@@ -41,12 +42,7 @@ public:
 	 * but the data attribute will point to the data of the input argument.
 	 */
 	void smartClone(const SymMatrix& obj);
-	inline void free(){
-		if(this->data != NULL){
-			delete [] this->data;
-			this->data = NULL;
-		}
-	}
+
 	inline unsigned int getNRows(){
 		return this->nrows;
 	}
@@ -89,11 +85,34 @@ public:
 	 * Overloaded operator prints the matrix elements
 	 */
 	friend std::ostream& operator<<(std::ostream& os, const SymMatrix& obj);
+	inline bool isEmpty(){
+		if(this->data == NULL) return true; else return false;
+	}
+	inline unsigned int checkCounter(){
+		return this->data->counter;
+	}
+protected:
+	inline void free(){
+		//If the structu is not empty
+		if(this->data != NULL){
+			//Decrement the counter by one
+			this->data->counter--;
+			//If the data inside the structure is null, do nothing, if not, deallocate
+			if(this->data->data != NULL){
+				if (this->data->counter == 0) {
+					delete [] this->data->data;
+					delete this->data;
+				}
+				this->data = NULL;
+
+			}
+		}
+	}
 private:
 	/*
-	 * Pointer to the array of data.
+	 * Pointer to Data structure
 	 */
-	double *data;
+	Data* data;
 	/*
 	 * The number of rows and columns (because the matrix is symmetric, just one is needed).
 	 */

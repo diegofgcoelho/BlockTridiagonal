@@ -32,7 +32,6 @@ void testPrintOperatorDenseMatrix(){
 
 	//Displaying the matrix
 	std::cout << matrix << std::endl;
-	matrix.free();
 	std::cout << "End of << operator test." << std::endl;
 }
 
@@ -54,9 +53,9 @@ void testAssignOperatorDenseMatrix(){
 
 	//Displaying the copyed matrix
 	DenseMatrix matrixb;
+	std::cout << "The counter = " << matrix.checkCounter() << "." << std::endl;
 	matrixb = matrix;
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
-	matrix.free();
 	std::cout << "End of = operator test." << std::endl;
 }
 
@@ -81,8 +80,6 @@ void testCloneToDenseMatrix(){
 	DenseMatrix matrixb;
 	matrix.cloneTo(matrixb);
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of cloneTo test." << std::endl;
 }
 
@@ -107,8 +104,6 @@ void testCloneTransposeToDenseMatrix(){
 	DenseMatrix matrixb;
 	matrix.cloneTransposeTo(matrixb);
 	std::cout << "Copyed transpose matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of cloneTransposeTo test." << std::endl;
 }
 
@@ -134,8 +129,6 @@ void testCloneFromDenseMatrix(){
 	DenseMatrix matrixb;
 	matrixb.cloneFrom(matrix);
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of cloneFrom test." << std::endl;
 }
 
@@ -160,8 +153,6 @@ void testCloneTransposeFromDenseMatrix(){
 	DenseMatrix matrixb;
 	matrixb.cloneTransposeFrom(matrix);
 	std::cout << "Copyed transpose matrix:\n" << matrixb << std::endl;
-	matrix.free();
-	matrixb.free();
 	std::cout << "End of cloneTransposeFrom test." << std::endl;
 }
 
@@ -193,9 +184,6 @@ void testMultiplyOperatorDenseMatrixXDenseMatrix(){
 	DenseMatrix denseAB;
 	denseAB = denseA*denseB;
 	std::cout << "Tested operator A*B :" << denseAB << std::endl;
-	denseA.free();
-	denseB.free();
-	denseAB.free();
 	std::cout << "End of * operator test." << std::endl;
 }
 
@@ -231,9 +219,6 @@ void testMultiplyOperatorDenseMatrixXSymMatrix(){
 	DenseMatrix denseAB;
 	denseAB = denseA*symB;
 	std::cout << "Tested operator A*B :" << denseAB << std::endl;
-	symB.free();
-	denseA.free();
-	denseAB.free();
 	std::cout << "End of * operator test." << std::endl;
 }
 
@@ -267,7 +252,6 @@ void testDenseMatrixXVector(){
 	for(unsigned int i = 0; i < denseA.getNRows(); i++){
 		std::cout << " u[" << i << "] = " << dataU[i] << std::endl;
 	}
-	denseA.free();
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemv test." << std::endl;
@@ -303,7 +287,6 @@ void testDenseMatrixXComplexVector(){
 	for(unsigned int i = 0; i < denseA.getNRows(); i++){
 		std::cout << " u[" << i << "] = " << dataU[i] << std::endl;
 	}
-	denseA.free();
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemv test." << std::endl;
@@ -339,7 +322,6 @@ void testDenseMatrixTransposedXVector(){
 	for(unsigned int i = 0; i < denseA.getNRows(); i++){
 		std::cout << " u[" << i << "] = " << dataU[i] << std::endl;
 	}
-	denseA.free();
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemtv test." << std::endl;
@@ -375,7 +357,6 @@ void testDenseMatrixTransposedXComplexVector(){
 	for(unsigned int i = 0; i < denseA.getNRows(); i++){
 		std::cout << " u[" << i << "] = " << dataU[i] << std::endl;
 	}
-	denseA.free();
 	delete [] dataU;
 	delete [] dataV;
 	std::cout << "End of gemv test." << std::endl;
@@ -405,7 +386,6 @@ void testAAT(){
 	DenseMatrix denseA(dataA, nsize, nsize);
 	std::cout << "DenseMatrix A :" << denseA << std::endl;
 	std::cout << "Resulting SymMatrix A*A^T :" << denseA.AAT() << std::endl;
-	denseA.free();
 	std::cout << "End of AAT method test." << std::endl;
 }
 
@@ -433,7 +413,6 @@ void testATA(){
 	DenseMatrix denseA(dataA, nsize, nsize);
 	std::cout << "DenseMatrix A :" << denseA << std::endl;
 	std::cout << "Resulting SymMatrix A^T*A :" << denseA.ATA() << std::endl;
-	denseA.free();
 	std::cout << "End of ATA method test." << std::endl;
 }
 
@@ -466,9 +445,6 @@ void testAddOperatorDenseMatrixXDenseMatrix(){
 	DenseMatrix denseAB;
 	denseAB = denseA+denseB;
 	std::cout << "Tested operator A+B :" << denseAB << std::endl;
-	denseA.free();
-	denseB.free();
-	denseAB.free();
 	std::cout << "End of + operator test." << std::endl;
 }
 

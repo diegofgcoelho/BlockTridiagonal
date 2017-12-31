@@ -1,6 +1,6 @@
 Test/DenseMatrix_test.o: ../Test/DenseMatrix_test.cpp \
  ../Test/../Sources/DenseMatrix.h ../Test/../Sources/SymMatrix.h \
- ../Test/../Sources/DenseMatrix.h \
+ ../Test/../Sources/Support.h ../Test/../Sources/DenseMatrix.h \
  /home/diego/softwares/eigen3.3/Eigen/Dense \
  /home/diego/softwares/eigen3.3/Eigen/Core \
  /home/diego/softwares/eigen3.3/Eigen/src/Core/util/DisableStupidWarnings.h \
@@ -179,6 +179,8 @@ Test/DenseMatrix_test.o: ../Test/DenseMatrix_test.cpp \
 ../Test/../Sources/DenseMatrix.h:
 
 ../Test/../Sources/SymMatrix.h:
+
+../Test/../Sources/Support.h:
 
 ../Test/../Sources/DenseMatrix.h:
 

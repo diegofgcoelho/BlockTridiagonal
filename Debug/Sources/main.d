@@ -1,6 +1,6 @@
 Sources/main.o: ../Sources/main.cpp ../Sources/DenseMatrix.h \
- ../Sources/SymMatrix.h ../Sources/SBlockTrid.h ../Sources/SBlockPent.h \
- ../Sources/Support.h /home/diego/softwares/eigen3.3/Eigen/Dense \
+ ../Sources/SymMatrix.h ../Sources/Support.h ../Sources/SBlockTrid.h \
+ ../Sources/SBlockPent.h /home/diego/softwares/eigen3.3/Eigen/Dense \
  /home/diego/softwares/eigen3.3/Eigen/Core \
  /home/diego/softwares/eigen3.3/Eigen/src/Core/util/DisableStupidWarnings.h \
  /home/diego/softwares/eigen3.3/Eigen/src/Core/util/Macros.h \
@@ -179,11 +179,11 @@ Sources/main.o: ../Sources/main.cpp ../Sources/DenseMatrix.h \
 
 ../Sources/SymMatrix.h:
 
+../Sources/Support.h:
+
 ../Sources/SBlockTrid.h:
 
 ../Sources/SBlockPent.h:
-
-../Sources/Support.h:
 
 /home/diego/softwares/eigen3.3/Eigen/Dense:
 

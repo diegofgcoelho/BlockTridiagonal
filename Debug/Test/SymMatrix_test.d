@@ -1,6 +1,6 @@
 Test/SymMatrix_test.o: ../Test/SymMatrix_test.cpp \
- ../Test/../Sources/SymMatrix.h ../Test/../Sources/DenseMatrix.h \
- ../Test/../Sources/SymMatrix.h \
+ ../Test/../Sources/SymMatrix.h ../Test/../Sources/Support.h \
+ ../Test/../Sources/DenseMatrix.h ../Test/../Sources/SymMatrix.h \
  /home/diego/softwares/eigen3.3/Eigen/Dense \
  /home/diego/softwares/eigen3.3/Eigen/Core \
  /home/diego/softwares/eigen3.3/Eigen/src/Core/util/DisableStupidWarnings.h \
@@ -177,6 +177,8 @@ Test/SymMatrix_test.o: ../Test/SymMatrix_test.cpp \
  /home/diego/softwares/eigen3.3/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h
 
 ../Test/../Sources/SymMatrix.h:
+
+../Test/../Sources/Support.h:
 
 ../Test/../Sources/DenseMatrix.h:
 

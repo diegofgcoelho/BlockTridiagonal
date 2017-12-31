@@ -43,12 +43,6 @@ public:
 	 * but the data attribute will point to the data of the input argument.
 	 */
 	void smartClone(const DenseMatrix& obj);
-	inline void free(){
-		if(this->data != NULL){
-			delete [] this->data;
-			this->data = NULL;
-		}
-	}
 	inline unsigned int getNRows(){
 		return this->nrows;
 	}
@@ -63,10 +57,10 @@ public:
 	 * Set and get methods for a particular matrix element.
 	 */
 	inline void setEle(unsigned int i, unsigned int j, double ele){
-		this->data[i*ncols+j] = ele;
+		this->data->data[i*ncols+j] = ele;
 	}
 	inline double getEle(unsigned int i, unsigned int j){
-		return this->data[i*ncols+j];
+		return this->data->data[i*ncols+j];
 	}
 	/*
 	 * The = operator is similar to the CloneFrom method. It provides deep copy.
@@ -105,11 +99,31 @@ public:
 	 * Overloaded operator prints the matrix elements
 	 */
 	friend std::ostream& operator<<(std::ostream& os, const DenseMatrix& obj);
+	inline unsigned int checkCounter(){
+		return this->data->counter;
+	}
+protected:
+	inline void free(){
+		//If the structu is not empty
+		if(this->data != NULL){
+			//Decrement the counter by one
+			this->data->counter--;
+			//If the data inside the structure is null, do nothing, if not, deallocate
+			if(this->data->data != NULL){
+				if (this->data->counter == 0) {
+					delete [] this->data->data;
+					delete this->data;
+				}
+				this->data = NULL;
+
+			}
+		}
+	}
 private:
 	/*
-	 * Pointer to the array of data.
+	 * Pointer to Data structure
 	 */
-	double *data;
+	Data* data;
 	/*
 	 * The number of rows and columns, respectively.
 	 */
