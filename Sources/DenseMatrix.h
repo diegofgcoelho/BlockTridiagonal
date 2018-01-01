@@ -112,10 +112,10 @@ protected:
 			if(this->data->data != NULL){
 				if (this->data->counter == 0) {
 					delete [] this->data->data;
+					delete this->data;
 				}
-				delete this->data;
-				this->data = NULL;
 			}
+			this->data = NULL;
 		}
 	}
 private:

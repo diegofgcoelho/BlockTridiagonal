@@ -17,7 +17,7 @@ int main(int agrc, char* argv[]){
 //	std::cout << "************************************************************************************" << std::endl;
 //	std::cout << "************************************************************************************" << std::endl;
 //	matrix::testPrintOperatorDenseMatrix();
-	matrix::testAssignOperatorDenseMatrix();
+//	matrix::testAssignOperatorDenseMatrix();
 //	matrix::testCloneToDenseMatrix();
 //	matrix::testCloneFromDenseMatrix();
 //	matrix::testMultiplyOperatorDenseMatrixXDenseMatrix();
@@ -47,7 +47,7 @@ int main(int agrc, char* argv[]){
 //	std::cout << "*************************Testing the methods for SBlockTrid************************" << std::endl;
 //	std::cout << "************************************************************************************" << std::endl;
 //	std::cout << "************************************************************************************" << std::endl;
-//	matrix::testPrintOperatorSBlockTrid();
+	matrix::testPrintOperatorSBlockTrid();
 //	matrix::testSetBlocksSBlockTrid();
 //	matrix::testAssignOperatorSBlockTrid();
 //	matrix::testSymMatrixXVectorPlusDenseMatrixXVector();
