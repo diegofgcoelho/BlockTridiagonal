@@ -795,8 +795,6 @@ void testSymvTridComplex(){
 
 		if(derr > 1e-3){
 			std::cout << "Different at i = " << i << " with eigen_vec_y = " << eigen_vec_y[i] << " and vec_y = " << vec_y[i] << "\n";
-		}else {
-			std::cout << "Same at i = " << i << " with eigen_vec_y = " << eigen_vec_y[i] << " and vec_y = " << vec_y[i] << "\n";
 		}
 	}
 

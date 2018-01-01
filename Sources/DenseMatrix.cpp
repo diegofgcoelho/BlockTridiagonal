@@ -243,15 +243,17 @@ void DenseMatrix::gemtv(std::complex<double>* src, std::complex<double>* dest){
 
 
 std::ostream& operator<<(std::ostream& os, const DenseMatrix& obj){
-	os << "\n[";
-	for(unsigned int i = 0; i <  obj.nrows; i++){
-		for(unsigned int j = 0; j <  obj.ncols; j++){
-			os << obj.data->data[i*obj.ncols+j];
-			if(j != obj.ncols-1) os << " ";
+	if (obj.data != NULL) {
+		os << "\n[";
+		for(unsigned int i = 0; i <  obj.nrows; i++){
+			for(unsigned int j = 0; j <  obj.ncols; j++){
+				os << obj.data->data[i*obj.ncols+j];
+				if(j != obj.ncols-1) os << " ";
+			}
+			if(i != obj.nrows-1) os << "\n";
 		}
-		if(i != obj.nrows-1) os << "\n";
-	}
-	os << "]\n";
+		os << "]\n";
+	} else os << "This matrix is empty\n";
 	return os;
 }
 

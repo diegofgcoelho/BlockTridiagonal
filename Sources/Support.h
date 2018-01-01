@@ -31,7 +31,7 @@ namespace support{
 	}
 
 	/*
-	 * This funciton implements the BLAS level I operation of scaling its vector argument by a.
+	 * This function implements the BLAS level I operation of scaling its vector argument by a.
 	 */
 	inline void scal(std::complex<double>* v, unsigned int vsize, double a){
 		for(unsigned int i = 0; i < vsize; i++) v[i] *= a;
@@ -59,8 +59,20 @@ namespace support{
 
 	bool check_stop(std::complex<double>* v, std::complex<double>* vv, std::complex<double>* vvv, unsigned int vsize, double prec, double *rnormd);
 
+	//Return the component with largest magnitude for array of complex numbers
 	std::complex<double> max_mag_cmp(std::complex<double>* v, unsigned int vsize);
+	//Return the component with largest magnitude for array of doubles
 	double max_mag(double* v, unsigned int vsize);
+
+	//Returns the variance
+	inline double variance(double* v, unsigned int vsize, double mean){
+		double var = 0.0;
+		for(unsigned int i = 0; i < vsize; i++)	var = var + (v[i]-mean)*(v[i]-mean);
+		var = std::sqrt(var); var /= vsize;
+		return var;
+	}
+
+
 }
 
 #endif /* SUPPORT_H_ */

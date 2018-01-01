@@ -100,7 +100,7 @@ public:
 	 */
 	friend std::ostream& operator<<(std::ostream& os, const DenseMatrix& obj);
 	inline unsigned int checkCounter(){
-		return this->data->counter;
+		if(this->data != NULL) return this->data->counter; else return 0;
 	}
 protected:
 	inline void free(){
@@ -112,10 +112,9 @@ protected:
 			if(this->data->data != NULL){
 				if (this->data->counter == 0) {
 					delete [] this->data->data;
-					delete this->data;
 				}
+				delete this->data;
 				this->data = NULL;
-
 			}
 		}
 	}

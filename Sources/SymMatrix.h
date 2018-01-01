@@ -93,7 +93,7 @@ public:
 	}
 protected:
 	inline void free(){
-		//If the structu is not empty
+		//If the structure is not empty
 		if(this->data != NULL){
 			//Decrement the counter by one
 			this->data->counter--;
@@ -101,10 +101,9 @@ protected:
 			if(this->data->data != NULL){
 				if (this->data->counter == 0) {
 					delete [] this->data->data;
-					delete this->data;
 				}
+				delete this->data;
 				this->data = NULL;
-
 			}
 		}
 	}

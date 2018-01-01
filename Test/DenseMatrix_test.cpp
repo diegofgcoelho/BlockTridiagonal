@@ -53,10 +53,15 @@ void testAssignOperatorDenseMatrix(){
 
 	//Displaying the copyed matrix
 	DenseMatrix matrixb;
-	std::cout << "The counter = " << matrix.checkCounter() << "." << std::endl;
-	matrixb = matrix;
+	std::cout << "The counter a = " << matrix.checkCounter() << "." << std::endl;
+	std::cout << "The counter b = " << matrixb.checkCounter() << "." << std::endl;
+	//TODO: the problem is on the = operator.
+//	matrixb = matrix;
 	std::cout << "Copyed matrix:\n" << matrixb << std::endl;
 	std::cout << "End of = operator test." << std::endl;
+
+	std::cout << "The counter a = " << matrix.checkCounter() << "." << std::endl;
+	std::cout << "The counter b = " << matrixb.checkCounter() << "." << std::endl;
 }
 
 void testCloneToDenseMatrix(){
