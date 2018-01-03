@@ -29,7 +29,7 @@ void testPrintOperatorSBlockTrid(){
 	unsigned int nsize = 5;
 	unsigned int nblocks = 7;
 
-	DenseMatrix* denseBlocks = new DenseMatrix[nblocks];
+	DenseMatrix* denseBlocks = new DenseMatrix[nblocks-1];
 	SymMatrix* symBlocks = new SymMatrix[nblocks];
 
 	for(unsigned int k = 0; k < nblocks-1; k++){
@@ -969,6 +969,7 @@ void testSymvTridComplexAndScale(){
 
 	delete [] vec_x;
 	delete [] vec_y;
+	delete [] vec_z;
 
 	std::cout << "End of Trid::symv method test. If nothing was print on the screen, everything is fine." << std::endl;
 

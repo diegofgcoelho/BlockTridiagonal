@@ -135,6 +135,9 @@ void SBlockTrid::free(){
 			this->symBlocks[i].~SymMatrix();
 			this->denseBlocks[i].~DenseMatrix();
 		}
+
+		this->symBlocks[this->nblocks-1].~SymMatrix();
+
 		delete [] this->symBlocks;
 		delete [] this->denseBlocks;
 
